@@ -8,6 +8,7 @@ public class dragonController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public Sprite[] dragonSpriteArray;
     float bounds = 0.75f;
+    public Animation anim;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class dragonController : MonoBehaviour
         // MOVEMENT
         if (Input.GetKeyDown(KeyCode.W))
         {
+            
             rb.velocity = Vector2.up;
             spriteRenderer.sprite = dragonSpriteArray[0];
             
