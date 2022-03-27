@@ -9,16 +9,18 @@ public class columnSpawner : MonoBehaviour
     public GameObject col;
     public gameManager gameManager;
     public dragonController dragonController;
+    public GameObject ColumnParent;
     private void Start()
     {
         gameManager = FindObjectOfType<gameManager>();
         dragonController = FindObjectOfType<dragonController>();
-        spawnColumn();
+        ColumnParent = GameObject.Find("ColumnParent");
     }
 
     public void spawnColumn()
     {
         col = (GameObject)Instantiate(colPrefab);
+        col.transform.SetParent(ColumnParent.transform, false);
         col.transform.position = new Vector2(1.3f, dragonController.transform.position.y + Random.Range(-0.1f, 0.1f));
         col.GetComponent<SpriteRenderer>().sprite = colArray[Random.Range(0, colArray.Length)];
         col.AddComponent<BoxCollider2D>();

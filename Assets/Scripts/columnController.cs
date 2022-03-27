@@ -36,6 +36,11 @@ public class columnController : MonoBehaviour
         }
         if (transform.position.y < -1f)
         {
+            // Make sure fireballs don't destroy the entire gameplay loop!
+            if(columnSpawner.ColumnParent.transform.childCount == 1)
+            {
+                columnSpawner.spawnColumn();
+            }
             Destroy(gameObject);
         }
     }
@@ -44,11 +49,21 @@ public class columnController : MonoBehaviour
     {
         if (reachedEnd)
         {
-            rb.gravityScale = Random.Range(0.2f, 0.6f);
             reachedEnd = false;
-            gameManager.DecreaseMultiplier();
-            gameManager.DecreaseScore();
-            dragonController.anim.Play("dragon-flashing");
+            rb.gravityScale = Random.Range(0.2f, 0.6f);
+
+            if (collision.gameObject.CompareTag("Fireball"))
+            {
+                Destroy(collision.gameObject);
+            }
+            else { 
+                gameManager.DecreaseMultiplier();
+                gameManager.DecreaseScore();
+                gameManager.fireballChargerCounter = 0;
+                gameManager.fireballReady = false;
+                dragonController.dragonAnim.Play("dragon-flashing");
+            }
         }
+
     }
 }

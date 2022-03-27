@@ -1,0 +1,4 @@
+repository "flappy-dragon@jacksorjacksor@cloud"
+  path "/"
+    br "/main"
+    co "/main"
